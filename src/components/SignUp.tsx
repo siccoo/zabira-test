@@ -1,7 +1,13 @@
 /* eslint-disable react-hooks/purity */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 // import { Link } from "react-router-dom";
+
+const promoImages = [
+  "/power-banner1.png",
+  "/power-banner2.png",
+  "/power-banner3.png",
+];
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +15,15 @@ const SignUp: React.FC = () => {
   const [referralCode, setReferralCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [currentPromo, setCurrentPromo] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPromo((prev) => (prev + 1) % promoImages.length);
+    }, 3500); // change slide every 3.5s
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSignUp = () => {
     if (!agreedToTerms) {
@@ -85,10 +100,7 @@ const SignUp: React.FC = () => {
           </div>
           <div className="flex ml-auto">
             <div className="md:flex w-fit rounded-full bg-primary-04 border border-primary-05 overflow-hidden">
-              <p
-                className="text-primary-base flex items-center py-2 px-3 cursor-pointer border-r transition-colors"
-                
-              >
+              <p className="text-primary-base flex items-center py-2 px-3 cursor-pointer border-r transition-colors">
                 <img
                   src="/check-rates.png"
                   alt="rates"
@@ -96,9 +108,7 @@ const SignUp: React.FC = () => {
                 />
                 Check Rates
               </p>
-              <p
-                className="text-primary-base flex items-center py-2 px-3 cursor-pointer transition-colors border-primary-05"
-              >
+              <p className="text-primary-base flex items-center py-2 px-3 cursor-pointer transition-colors border-primary-05">
                 <img
                   src="/help.png"
                   alt="headphones"
@@ -119,8 +129,22 @@ const SignUp: React.FC = () => {
               </h2>
 
               {/* Promo Banner */}
-              <div className="rounded-xl mb-3 flex items-center gap-3">
-                <img src="/power-banner1.png" alt="power" className="w-full" />
+              <div className="relative overflow-hidden rounded-xl mb-4">
+                <div
+                  className="flex transition-transform duration-700 ease-in-out"
+                  style={{
+                    transform: `translateX(-${currentPromo * 100}%)`,
+                  }}
+                >
+                  {promoImages.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      alt={`promo-${index}`}
+                      className="w-full flex-shrink-0"
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Email Input */}
@@ -161,7 +185,12 @@ const SignUp: React.FC = () => {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-[0px] flex items-center pointer-events-none">
-                    <img src="/pass-lock.png" alt="password" width={15} height={15} />
+                    <img
+                      src="/pass-lock.png"
+                      alt="password"
+                      width={15}
+                      height={15}
+                    />
                   </div>
                   <input
                     type={showPassword ? "text" : "password"}
@@ -191,7 +220,12 @@ const SignUp: React.FC = () => {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-[0px] flex items-center pointer-events-none">
-                    <img src="/community.png" alt="password" width={15} height={15} />
+                    <img
+                      src="/community.png"
+                      alt="password"
+                      width={15}
+                      height={15}
+                    />
                   </div>
                   <input
                     type="text"
@@ -275,7 +309,7 @@ const SignUp: React.FC = () => {
             </div>
             <div>
               {/* Login Link */}
-              <div className="text-center mb-4">
+              <div className="text-center mt-6 mb-6">
                 <span className="text-gray-600 text-sm">
                   Already have an account?{" "}
                   <a
@@ -288,7 +322,7 @@ const SignUp: React.FC = () => {
               </div>
 
               {/* NDPR Badge */}
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-600 border border-white bg-white rounded-md w-fit mx-auto p-[3px]">
                 <svg
                   className="w-4 h-4 text-green-500"
                   fill="currentColor"
