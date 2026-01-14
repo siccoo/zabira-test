@@ -9,6 +9,51 @@ const promoImages = [
   "/power-banner3.png",
 ];
 
+const leftPanelSlides = [
+  {
+    title: (
+      <>
+        Easily Buy & Sell
+        <br />
+        Cryptocurrencies,
+        <br />
+        Giftcards & Pay Bills
+      </>
+    ),
+    description: "Manage your assets and portfolio easily!",
+  },
+  {
+    title: (
+      <>
+        Fast & Secure
+        <br />
+        Crypto Transactions
+      </>
+    ),
+    description: "Top-level security with instant settlements.",
+  },
+  {
+    title: (
+      <>
+        Pay Bills
+        <br />
+        Anytime, Anywhere
+      </>
+    ),
+    description: "Electricity, data, airtime & more in seconds.",
+  },
+  {
+    title: (
+      <>
+        Trusted by
+        <br />
+        Thousands of Users
+      </>
+    ),
+    description: "Join a fast-growing community across Africa.",
+  },
+];
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +68,15 @@ const Login: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLogin = () => {   
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPromo((prev) => (prev + 1) % leftPanelSlides.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleLogin = () => {
     console.log("Login", { email, password });
   };
 
@@ -62,26 +115,37 @@ const Login: React.FC = () => {
           </div>
         </div>
 
-        {/* Content */}
-        <div className="relative z-10">
-          <h1 className="text-2xl font-geist font-bold leading-tight">
-            Easily Buy & Sell
-            <br />
-            Cryptocurrencies,
-            <br />
-            Giftcards & Pay Bills
-          </h1>
-          <p className="text-[#D1D5DB] font-medium text-lg">
-            Manage your assets and portfolio easily!
-          </p>
+        {/* Content Slider */}
+        <div className="relative z-10 overflow-hidden h-[140px]">
+          <div
+            className="transition-transform duration-700 ease-in-out"
+            style={{
+              transform: `translateY(-${currentPromo * 140}px)`,
+            }}
+          >
+            {leftPanelSlides.map((slide, index) => (
+              <div key={index} className="h-[140px]">
+                <h1 className="text-2xl font-geist font-bold leading-tight">
+                  {slide.title}
+                </h1>
+                <p className="text-[#D1D5DB] font-medium text-lg mt-2">
+                  {slide.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Pagination Dots */}
         <div className="flex gap-2 relative z-10">
-          <div className="w-8 h-1 bg-white rounded-full"></div>
-          <div className="w-8 h-1 bg-gray-500 rounded-full"></div>
-          <div className="w-8 h-1 bg-gray-500 rounded-full"></div>
-          <div className="w-8 h-1 bg-gray-500 rounded-full"></div>
+          {leftPanelSlides.map((_, index) => (
+            <span
+              key={index}
+              className={`h-1 w-8 rounded-full transition-all duration-300 ${
+                currentPromo === index ? "bg-white" : "bg-white/40"
+              }`}
+            />
+          ))}
         </div>
       </div>
 
