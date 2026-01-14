@@ -84,30 +84,28 @@ const SignUp: React.FC = () => {
             <img src="/z-logo.png" alt="logo" width={100} height={20} />
           </div>
           <div className="flex ml-auto">
-            <div className="md:flex w-fit rounded-full bg-primary-04 border border-primary-05 overflow-hidden ng-tns-c173-0">
-              <a
-                href="/"
-                className="text-primary-base flex items-center py-2 px-3 cursor-pointer hover:bg-primary-05 border-r transition-colors ng-tns-c173-0"
-                tabIndex={0}
+            <div className="md:flex w-fit rounded-full bg-primary-04 border border-primary-05 overflow-hidden">
+              <p
+                className="text-primary-base flex items-center py-2 px-3 cursor-pointer border-r transition-colors"
+                
               >
                 <img
-                  src="assets/images/icons/calculator2.svg"
+                  src="/check-rates.png"
                   alt="rates"
                   className="w-4 h-4 mr-1.5"
                 />
                 Check Rates
-              </a>
-              <a
-                href="/"
-                className="text-primary-base flex items-center py-2 px-3 cursor-pointer hover:bg-primary-05 transition-colors border-primary-05 ng-tns-c173-0"
+              </p>
+              <p
+                className="text-primary-base flex items-center py-2 px-3 cursor-pointer transition-colors border-primary-05"
               >
                 <img
-                  src="assets/images/icons/headphones.svg"
+                  src="/help.png"
                   alt="headphones"
                   className="w-4 h-4 mr-1.5"
                 />{" "}
                 Help
-              </a>
+              </p>
             </div>
           </div>
         </div>
@@ -116,27 +114,17 @@ const SignUp: React.FC = () => {
         <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
           <div className="w-full max-w-xl p-8">
             <div className="max-w-xl p-8 bg-white rounded-lg shadow-lg">
-              <h2 className="text-3xl font-bold mb-6 text-center lg:text-left">
+              <h2 className="text-2xl font-geist font-bold mb-3 text-center text-[#1A1A1A] lg:text-left">
                 Create an account in 2 minutes!
               </h2>
 
               {/* Promo Banner */}
-              <div className="bg-gradient-to-r from-[#84cc16] to-[#65a30d] rounded-xl p-4 mb-6 flex items-center gap-3">
-                <div className="bg-white rounded-lg p-2 flex-shrink-0">
-                  <div className="text-2xl font-bold bg-gradient-to-br from-blue-500 to-purple-500 bg-clip-text text-transparent">
-                    LGBTQ
-                  </div>
-                </div>
-                <div className="text-white">
-                  <div className="font-bold text-lg">
-                    SELL & GAIN up to ₦50 on every
-                  </div>
-                  <div className="font-semibold">$ Crypto Trade</div>
-                </div>
+              <div className="rounded-xl mb-3 flex items-center gap-3">
+                <img src="/power-banner1.png" alt="power" className="w-full" />
               </div>
 
               {/* Email Input */}
-              <div className="mb-4 mb-4 w-full p-3 border border-gray-300 rounded-lg">
+              <div className="mb-4 w-full p-3 border border-gray-300 rounded-lg">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email
                 </label>
@@ -197,32 +185,20 @@ const SignUp: React.FC = () => {
               </div>
 
               {/* Referral Code Input */}
-              <div className="mb-4">
+              <div className="mb-4 w-full p-3 border border-gray-300 rounded-lg">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Referral Code (Optional)
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg
-                      className="w-5 h-5 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
+                  <div className="absolute inset-y-0 left-0 pl-[0px] flex items-center pointer-events-none">
+                    <img src="/community.png" alt="password" width={15} height={15} />
                   </div>
                   <input
                     type="text"
                     value={referralCode}
                     onChange={(e) => setReferralCode(e.target.value)}
                     placeholder="Enter referral code"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                    className="w-full pl-8 pr-22 outline-none transition"
                   />
                 </div>
               </div>
@@ -331,7 +307,7 @@ const SignUp: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <div className="p-4 text-center text-sm text-gray-500 flex justify-center gap-6 flex-wrap">
+        <div className="p-4 text-center text-sm text-gray-500 flex justify-between gap-6 flex-wrap">
           <span>© Zabira. 2026</span>
           <a href="#" className="hover:text-gray-700">
             Privacy Policy
