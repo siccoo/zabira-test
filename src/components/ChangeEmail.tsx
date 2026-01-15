@@ -73,11 +73,6 @@ const ChangeEmail: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-//   const handleSubmit = () => {
-//     console.log("Email submitted:", email);
-//     //     // Handle email change logic here
-//   };
-
   return (
     <div className="min-h-screen font-geist flex flex-col lg:flex-row p-6 lg:p-6">
       {/* Left Panel - Desktop Only */}

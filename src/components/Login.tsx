@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/purity */
 import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 const promoImages = [
@@ -271,12 +272,12 @@ const Login: React.FC = () => {
                 </div>
               </div>
               <div className="my-1">
-                <a
-                  href="/change-email"
+                <Link
+                  to="/change-email"
                   className="text-blue-600 hover:underline font-medium text-xs"
                 >
                   Forgot Password?
-                </a>
+                </Link>
               </div>
 
               {/* Sign Up Button */}

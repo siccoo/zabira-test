@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/purity */
 import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const promoImages = [
   "/power-banner1.png",
@@ -375,12 +376,12 @@ const SignUp: React.FC = () => {
               <div className="text-center mt-6 mb-6">
                 <span className="text-gray-600 text-sm">
                   Already have an account?{" "}
-                  <a
-                    href="/login"
+                  <Link
+                    to="/login"
                     className="text-blue-600 hover:underline font-medium"
                   >
                     Login
-                  </a>
+                  </Link>
                 </span>
               </div>
 
