@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/purity */
 import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const promoImages = [
   "/power-banner1.png",
@@ -54,13 +54,23 @@ const leftPanelSlides = [
   },
 ];
 
+const isValidEmail = (email: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
 const SignUp: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [referralCode, setReferralCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [currentPromo, setCurrentPromo] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+    terms?: string;
+  }>({});
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -79,11 +89,33 @@ const SignUp: React.FC = () => {
   }, []);
 
   const handleSignUp = () => {
-    if (!agreedToTerms) {
-      alert("Please agree to the Terms of Service and Privacy Policy");
-      return;
+    const newErrors: typeof errors = {};
+
+    if (!email || !isValidEmail(email)) {
+      newErrors.email = "Enter a valid email address";
     }
-    console.log("Sign up:", { email, password, referralCode });
+
+    if (!password || password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    if (!agreedToTerms) {
+      newErrors.terms = "You must agree to the terms";
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) return;
+
+    setIsSubmitting(true);
+
+    // Mock register (save to localStorage)
+    localStorage.setItem("zabira_user", JSON.stringify({ email, password }));
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+      navigate("/login");
+    }, 800);
   };
 
   return (
@@ -239,6 +271,9 @@ const SignUp: React.FC = () => {
                     placeholder="Type your email"
                     className="w-full pl-8 pr-22 outline-none transition"
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
                 </div>
               </div>
 
@@ -274,6 +309,11 @@ const SignUp: React.FC = () => {
                       <Eye className="w-5 h-5 text-gray-400" />
                     )}
                   </button>
+                  {errors.password && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.password}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -322,14 +362,22 @@ const SignUp: React.FC = () => {
                     .
                   </span>
                 </label>
+                {errors.terms && (
+                  <p className="text-red-500 text-xs mb-3">{errors.terms}</p>
+                )}
               </div>
 
               {/* Sign Up Button */}
               <button
                 onClick={handleSignUp}
-                className="w-full py-3 bg-gray-200 text-gray-400 rounded-lg font-semibold mb-4 hover:bg-gray-300 transition"
+                disabled={isSubmitting}
+                className={`w-full py-3 rounded font-semibold ${
+                  isSubmitting
+                    ? "bg-gray-300 text-gray-500"
+                    : "bg-[#1a1a1a] text-white "
+                }`}
               >
-                Sign Up
+                {isSubmitting ? "Creating account..." : "Sign Up"}
               </button>
 
               {/* Social Sign In */}

@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/purity */
 import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const promoImages = [
   "/power-banner1.png",
@@ -56,10 +55,13 @@ const leftPanelSlides = [
 ];
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [currentPromo, setCurrentPromo] = useState(0);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -78,7 +80,31 @@ const Login: React.FC = () => {
   }, []);
 
   const handleLogin = () => {
-    console.log("Login", { email, password });
+    setError("");
+
+    if (!email || !password) {
+      setError("Email and password are required");
+      return;
+    }
+
+    const storedUser = localStorage.getItem("zabira_user");
+    if (!storedUser) {
+      setError("No account found. Please sign up.");
+      return;
+    }
+
+    const user = JSON.parse(storedUser);
+    if (email !== user.email || password !== user.password) {
+      setError("Invalid email or password");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      console.log("Login successful");
+      navigate("/dashboard");
+    }, 800);
   };
 
   return (
@@ -271,6 +297,9 @@ const Login: React.FC = () => {
                   </button>
                 </div>
               </div>
+              {error && (
+                <p className="text-red-500 text-sm mb-3 text-center">{error}</p>
+              )}
               <div className="my-1">
                 <Link
                   to="/change-email"
@@ -283,9 +312,15 @@ const Login: React.FC = () => {
               {/* Sign Up Button */}
               <button
                 onClick={handleLogin}
-                className="w-full py-3 bg-gray-200 text-gray-400 rounded-lg font-semibold mb-4 hover:bg-gray-300 transition"
+                className={`w-full py-3 rounded-lg font-semibold mb-4 transition
+${
+  isSubmitting
+    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+    : "bg-[#1a1a1a] text-white"
+}
+  `}
               >
-                Login
+                {isSubmitting ? "Logging in..." : "Login"}
               </button>
 
               {/* Social Sign In */}
