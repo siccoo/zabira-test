@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-const CheckEmailComponent: React.FC = () => {
+const CheckEmail: React.FC = () => {
   const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
   const [email] = useState<string>("jacob@jones.com");
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -315,4 +315,4 @@ const CheckEmailComponent: React.FC = () => {
   );
 };
 
-export default CheckEmailComponent;
+export default CheckEmail;

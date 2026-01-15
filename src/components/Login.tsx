@@ -237,7 +237,7 @@ const Login: React.FC = () => {
               </div>
 
               {/* Password Input */}
-              <div className="mb-4 w-full p-3 border border-gray-300 rounded-lg">
+              <div className="mb-1 w-full p-3 border border-gray-300 rounded-lg">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Password
                 </label>
@@ -269,6 +269,14 @@ const Login: React.FC = () => {
                     )}
                   </button>
                 </div>
+              </div>
+              <div className="my-1">
+                <a
+                  href="/change-email"
+                  className="text-blue-600 hover:underline font-medium text-xs"
+                >
+                  Forgot Password?
+                </a>
               </div>
 
               {/* Sign Up Button */}
